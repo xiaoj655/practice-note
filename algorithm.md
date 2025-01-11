@@ -104,7 +104,9 @@ int binary_search_3(double l, double r)
 
 
 ## 大数运算
-key: 模拟四则运算, 以一个变量存储中间进位(加法), 借一(减法) 的中间值
+__KEY:__ 模拟四则运算, 以一个变量存储中间进位(加法), 借一(减法) 的中间值
+
+大的vector通过引用传递, 可以优化效率
 ```cpp
 vector<int> add(vector<int> A, vector<int> B)
 {
@@ -139,4 +141,42 @@ vector<int> sub(vector<int>& A, vector<int>& B)
     while(C.back() == 0 && C.size() > 1) C.pop_back();
     return C;
 }
+
+// 大整数A, 小整数b
+vector<int> mul(vector<int> A, int b)
+{
+    vector<int> C;
+
+    int t = 0
+
+    for(int i=0; i<A.size() || t; i++)
+    {
+        if(i < A.size()) A+=b*A[i];
+        C.push_back(t%10);
+        t /= 10;
+    }
+
+    while(C.back() == 0 && C.size() > 1) C.pop_back();
+
+    return C;
+}
+
+// 大整数A, 小整数b
+vector<int> div(vector<int> A,int b, int& r)
+{
+    vector<int> C;
+    r = 0;
+    for(int i=A.size(); i>=0 ; i--)
+    {
+        r = r*10 + A[i];
+        C.push_back(r/b);
+        r %= b;
+    }
+    reverse(A.begin(), A.end());
+    while(A.back() == 0 && A.size() > 1) A.pop_back();
+
+    return C;
+}
+
 ```
+
